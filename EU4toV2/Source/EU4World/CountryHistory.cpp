@@ -55,7 +55,7 @@ EU4::countryHistoryDate::countryHistoryDate(std::istream& theStream):
 			items.emplace_back(newLeader);
 		}
 	);
-
+	registerKeyword(std::regex("[a-zA-Z0-9_]+"), commonItems::ignoreItem);
 
 	parseStream(theStream);
 }
