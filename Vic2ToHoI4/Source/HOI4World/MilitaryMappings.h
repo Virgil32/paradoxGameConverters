@@ -48,7 +48,7 @@ class UnitMap
 		std::string getCategory() const { return category; }
 		std::string getType() const { return type; }
 		std::string getEquipment() const { return equipment; }
-		int getSize() const {return size; }
+		int getSize() const { return size; }
 
 	private:
 		std::string category;
