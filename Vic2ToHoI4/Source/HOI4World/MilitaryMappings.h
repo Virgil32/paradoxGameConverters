@@ -26,9 +26,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.*/
 
 
 
-#include "HoI4Army.h"
+#include "DivisionTemplate.h"
+#include "UnitMap.h"
 #include "newParser.h"
-#include "ParserHelpers.h"
+#include <istream>
 #include <map>
 #include <string>
 #include <vector>
@@ -39,27 +40,6 @@ namespace HoI4
 {
 
 
-class UnitMap: commonItems::parser
-{
-	public:
-		UnitMap(std::istream& theStream);
-		UnitMap() = default;
-		UnitMap(const UnitMap&) = default;
-		UnitMap& operator=(const UnitMap&) = default;
-
-		std::string getCategory() const { return category; }
-		std::string getType() const { return type; }
-		std::string getEquipment() const { return equipment; }
-		int getSize() const { return size; }
-
-	private:
-		std::string category;
-		std::string type;
-		std::string equipment;
-		int size = 0;
-};
-
-
 class militaryMappings: commonItems::parser
 {
 	public:
@@ -68,26 +48,17 @@ class militaryMappings: commonItems::parser
 		auto getMappingsName() const { return mappingsName; }
 		auto getUnitMap() const { return unitMap; }
 		auto getDivisionTemplates() const { return divisionTemplates; }
+		auto getSubstitutes() const { return substitutes; }
 
 	private:
 		void importUnitMap(std::istream& theStream);
 		void importDivisionTemplates(std::istream& theStream);
+		void importSubstitutes(std::istream& theStream);
 
 		std::string mappingsName = "";
 		std::map<std::string, HoI4::UnitMap> unitMap;
 		std::vector<HoI4::DivisionTemplateType> divisionTemplates;
-};
-
-
-class allMilitaryMappings: commonItems::parser
-{
-	public:
-		allMilitaryMappings();
-
-		militaryMappings getMilitaryMappings(const std::vector<std::string>& mods) const;
-
-	private:
-		std::map<std::string, militaryMappings> theMappings;
+		std::map<std::string, std::string> substitutes;
 };
 
 
