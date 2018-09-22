@@ -109,6 +109,7 @@ namespace Utils
 
 	std::string convertUTF8ToASCII(const std::string& UTF8);
 	std::string convertUTF8To8859_15(const std::string& UTF8);
+	std::string convertUTF8ToWin1252(const std::string& UTF8);
 	std::string convertUTF16ToUTF8(const std::wstring& UTF16);
 	std::string convert8859_15ToASCII(const std::string& input);
 	std::string convert8859_15ToUTF8(const std::string& input);

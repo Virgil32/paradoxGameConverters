@@ -1014,6 +1014,14 @@ namespace Utils
 		return ConvertString<string, string>("UTF−8", "ISO−8859−15", UTF8);
 	}
 	
+
+	std::string convertUTF8ToWin1252(const std::string& UTF8)
+	{
+		using namespace std;
+		return ConvertString<string, string>("UTF−8", "CP1252", UTF8);
+	}
+
+
 	/*
 		Warning: The input string should not be encoded in UTF-16 but in the system dependent wchar_t encoding
 		see convertUTF8ToUTF16 for full explanation

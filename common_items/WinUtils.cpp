@@ -308,6 +308,23 @@ std::string convertUTF8To8859_15(const std::string& UTF8)
 }
 
 
+std::string convertUTF8ToWin1252(const std::string& UTF8)
+{
+	int requiredSize = WideCharToMultiByte(1252, 0, convertUTF8ToUTF16(UTF8).c_str(), -1, NULL, 0, "0", NULL);
+	char* asciiArray = new char[requiredSize];
+
+	if (0 == WideCharToMultiByte(1252, 0, convertUTF8ToUTF16(UTF8).c_str(), -1, asciiArray, requiredSize, "0", NULL))
+	{
+		LOG(LogLevel::Error) << "Could not translate string to ASCII - " << GetLastErrorString();
+	}
+	std::string returnable(asciiArray);
+
+	delete[] asciiArray;
+
+	return returnable;
+}
+
+
 std::string convertUTF16ToUTF8(const std::wstring& UTF16)
 {
 	const int requiredSize = WideCharToMultiByte(CP_UTF8, 0, UTF16.c_str(), -1, NULL, 0, NULL, NULL);
@@ -368,10 +385,10 @@ std::string convertWin1252ToUTF8(const std::string& input)
 
 std::wstring convertWin1252ToUTF16(const std::string& input)
 {
-	const int requiredSize = MultiByteToWideChar(1252 /* 8859-15*/, MB_PRECOMPOSED, input.c_str(), -1, NULL, 0);
+	const int requiredSize = MultiByteToWideChar(1252, MB_PRECOMPOSED, input.c_str(), -1, NULL, 0);
 	wchar_t* wideKeyArray = new wchar_t[requiredSize];
 
-	if (0 == MultiByteToWideChar(1252 /* 8859-15*/, MB_PRECOMPOSED, input.c_str(), -1, wideKeyArray, requiredSize))
+	if (0 == MultiByteToWideChar(1252, MB_PRECOMPOSED, input.c_str(), -1, wideKeyArray, requiredSize))
 	{
 		LOG(LogLevel::Error) << "Could not translate string to UTF-16 - " << GetLastErrorString();
 	}
