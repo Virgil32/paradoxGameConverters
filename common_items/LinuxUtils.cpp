@@ -1052,14 +1052,14 @@ namespace Utils
 	std::string convertWin1252ToUTF8(const std::string& Win1252)
 	{
 		using namespace std;
-		return ConvertString<string, string>("CP1252", "UTF-8", input);
+		return ConvertString<string, string>("CP1252", "UTF-8", Win1252);
 	}
 
 
 	std::wstring convertWin1252ToUTF16(const std::string& Win1252)
 	{
 		using namespace std;
-		return ConvertString<string, wstring>("CP1252", "wchar_t", UTF8);
+		return ConvertString<string, wstring>("CP1252", "wchar_t", Win1252);
 	}
 
 	/*
